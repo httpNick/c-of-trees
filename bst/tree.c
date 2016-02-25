@@ -78,3 +78,14 @@ void postOrderPrint(struct bstNode *tree) {
   }
 
 }
+
+void freeTree(struct bstNode **tree) {
+
+  if (*tree == NULL) return;
+
+    freeTree(&(*tree)->left);
+    freeTree(&(*tree)->right);
+    free(*tree);
+    *tree = NULL;
+
+};

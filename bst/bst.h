@@ -17,5 +17,6 @@ void inOrderPrint(struct bstNode *);
 void preOrderPrint(struct bstNode *);
 void postOrderPrint(struct bstNode *);
 struct bstNode *find(struct bstNode *, char *);
+void freeTree(struct bstNode **);
 
 #endif //C_OF_TREES_BST_H
