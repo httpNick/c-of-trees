@@ -19,7 +19,21 @@ int main() {
   root->right = &d;
   d.parent = &a;
 
-  printf("%d\n", auntcle(&c)->val);
+  printf("auntcle: %d\n", auntcle(&c)->val);
+  printf("grandparent: %d\n", grandparent(&c)->val);
+
+  freeTree(&root);
+  root = NULL;
+
+  int test[] = {6, 2, 1, 20, 30, 15, 16, -1};
+
+  int i;
+  for(i = 0; test[i] != -1; i++) {
+    root = bstInsert(root, test[i]);
+  }
+
+  inOrderPrint(root);
+
   freeTree(&root);
 
   return 0;

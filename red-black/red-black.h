@@ -4,8 +4,8 @@
 
 #ifndef C_OF_TREES_RED_BLACK_H
 #define C_OF_TREES_RED_BLACK_H
-#define RED
-#define BLACK
+#define RED 0
+#define BLACK 1
 
 struct node {
   int val;
@@ -21,5 +21,7 @@ struct node * insert(struct node *, int);
 struct node * grandparent(struct node *);
 struct node * auntcle(struct node *);
 void freeTree(struct node **);
+struct node * createAChild(struct node *, struct node *, int);
+void inOrderPrint(struct node *);
 
 #endif //C_OF_TREES_RED_BLACK_H
