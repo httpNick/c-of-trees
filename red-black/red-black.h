@@ -18,6 +18,8 @@ struct node {
 struct node * bstInsert(struct node *, int);
 // true red-black insert that includes red-black tree rules.
 struct node * insert(struct node *, int);
+struct node * grandparent(struct node *);
+struct node * auntcle(struct node *);
 void freeTree(struct node **);
 
 #endif //C_OF_TREES_RED_BLACK_H
