@@ -33,7 +33,7 @@ struct node * bstInsert(struct node *n, int x) {
     if (isGreater == -1) {
 
       if (n->left == NULL) {
-        n->left = createAChild(n, n->left, x);
+        n->left = createAChild(n, x);
       } else {
         bstInsert(n->left, x);
       }
@@ -41,7 +41,7 @@ struct node * bstInsert(struct node *n, int x) {
     } else if (isGreater == 1) {
 
       if (n->right == NULL) {
-        n->right = createAChild(n, n->right, x);
+        n->right = createAChild(n, x);
       } else {
         bstInsert(n->right, x);
       }
@@ -50,22 +50,26 @@ struct node * bstInsert(struct node *n, int x) {
 
   } else{
 
-    n = createAChild(NULL, n, x);
+    n = createAChild(NULL, x);
 
   }
 
   return n;
 }
 
-struct node * createAChild(struct node *par, struct node *n, int x) {
+struct node * createAChild(struct node *par, int x) {
 
-  n = malloc(
+  struct node *n = malloc(
     sizeof(struct node)
   );
-  n->parent = par;
-  n->left = n->right = NULL;
-  n->val = x;
-  n->color = RED;
+  if (n) {
+    n->parent = par;
+    n->left = n->right = NULL;
+    n->val = x;
+    n->color = RED;
+  } else {
+    printf("memory allocation failed.\n");
+  }
 
   return n;
 
@@ -85,4 +89,13 @@ void inOrderPrint(struct node *tree) {
 
 struct node * insert(struct node *tree, int x) {}
 
-void freeTree(struct node **tree) {}
+void freeTree(struct node **tree) {
+
+  if (*tree == NULL) return;
+
+  freeTree(&(*tree)->left);
+  freeTree(&(*tree)->right);
+  free(*tree);
+  *tree = NULL;
+
+}
