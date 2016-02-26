@@ -29,11 +29,12 @@ struct node * bstInsert(struct node *n, int x) {
   if (n != NULL) {
 
     int isGreater = (x < n->val) ? -1 : (x > n->val);
-
+    void * newChild;
     if (isGreater == -1) {
 
       if (n->left == NULL) {
-        n->left = createAChild(n, x);
+        newChild = createAChild(n, x);
+        if (newChild) n->left = newChild;
       } else {
         bstInsert(n->left, x);
       }
@@ -41,7 +42,8 @@ struct node * bstInsert(struct node *n, int x) {
     } else if (isGreater == 1) {
 
       if (n->right == NULL) {
-        n->right = createAChild(n, x);
+        newChild = createAChild(n, x);
+        if(newChild) n->right = newChild;
       } else {
         bstInsert(n->right, x);
       }
@@ -68,7 +70,8 @@ struct node * createAChild(struct node *par, int x) {
     n->val = x;
     n->color = RED;
   } else {
-    printf("memory allocation failed.\n");
+    // memory allocation failure
+    return NULL;
   }
 
   return n;
