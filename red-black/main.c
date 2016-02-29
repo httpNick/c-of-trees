@@ -1,6 +1,9 @@
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "red-black.h"
+
+struct node *createANode(int);
 
 int main() {
 
@@ -24,11 +27,21 @@ int main() {
 
   root = NULL;
 
-  int test[] = {6, 2, 1, 20, 30, 15, 16, -1};
+  struct node *testNodes[] = {
+    createANode(6),
+    createANode(2),
+    createANode(1),
+    createANode(20),
+    createANode(30),
+    createANode(15),
+    createANode(16),
+    NULL
+  };
 
-  int i;
-  for(i = 0; test[i] != -1; i++) {
-    root = bstInsert(root, test[i]);
+  int _i;
+  for(_i = 0; ; _i++) {
+    if (testNodes[_i] == NULL) break;
+    root = insert(root, testNodes[_i]);
   }
 
   inOrderPrint(root);
@@ -36,4 +49,24 @@ int main() {
   freeTree(&root);
 
   return 0;
+}
+
+struct node * createANode(int value) {
+
+  struct node *n = malloc(
+    sizeof(struct node)
+  );
+
+  if (n) {
+
+    n->val = value;
+    n->color = RED;
+    n->parent = n->left = n->right = NULL;
+    return n;
+
+  } else {
+
+    return NULL;
+
+  }
 }

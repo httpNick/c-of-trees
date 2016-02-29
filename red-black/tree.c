@@ -24,17 +24,16 @@ struct node * auntcle(struct node *tree) {
 
 }
 
-struct node * bstInsert(struct node *n, int x) {
+struct node * bstInsert(struct node *n, struct node *x) {
 
   if (n != NULL) {
 
-    int isGreater = (x < n->val) ? -1 : (x > n->val);
-    void * newChild;
+    int isGreater = (x->val < n->val) ? -1 : (x->val > n->val);
     if (isGreater == -1) {
 
       if (n->left == NULL) {
-        newChild = createAChild(n, x);
-        if (newChild) n->left = newChild;
+        x->parent = n;
+        n->left = x;
       } else {
         bstInsert(n->left, x);
       }
@@ -42,8 +41,8 @@ struct node * bstInsert(struct node *n, int x) {
     } else if (isGreater == 1) {
 
       if (n->right == NULL) {
-        newChild = createAChild(n, x);
-        if(newChild) n->right = newChild;
+        x->parent = n;
+        n->right = x;
       } else {
         bstInsert(n->right, x);
       }
@@ -52,30 +51,11 @@ struct node * bstInsert(struct node *n, int x) {
 
   } else{
 
-    n = createAChild(NULL, x);
+    n = x;
 
   }
 
   return n;
-}
-
-struct node * createAChild(struct node *par, int x) {
-
-  struct node *n = malloc(
-    sizeof(struct node)
-  );
-  if (n) {
-    n->parent = par;
-    n->left = n->right = NULL;
-    n->val = x;
-    n->color = RED;
-  } else {
-    // memory allocation failure
-    return NULL;
-  }
-
-  return n;
-
 }
 
 void inOrderPrint(struct node *tree) {
@@ -90,7 +70,14 @@ void inOrderPrint(struct node *tree) {
 
 }
 
-struct node * insert(struct node *tree, int x) {}
+struct node * insert(struct node *tree, struct node *x) {
+
+  tree = bstInsert(tree, x);
+  printf("inserted node is: %d\n", x->val);
+  if (x->parent != NULL) printf("inserted node's par is: %d\n", x->parent->val);
+  return tree;
+
+}
 
 void freeTree(struct node **tree) {
 
