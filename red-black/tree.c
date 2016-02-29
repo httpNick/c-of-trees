@@ -73,19 +73,43 @@ void inOrderPrint(struct node *tree) {
 struct node * insert(struct node *tree, struct node *x) {
 
   tree = bstInsert(tree, x);
-  printf("inserted node is: %d\n", x->val);
-  if (x->parent != NULL) printf("inserted node's par is: %d\n", x->parent->val);
+  while(x->parent != NULL && x->parent->color == RED) {
+    if (x->parent->val == grandparent(x)->left->val) {
+      struct node *y = grandparent(x)->right;
+      // case 1
+      if (y->color == RED) {
+        x->parent->color = BLACK;
+        y->color = BLACK;
+        grandparent(x)->color = RED;
+        x = grandparent(x);
+      }
+      //case 2
+    }
+  }
+  tree->color = BLACK;
   return tree;
 
 }
 
-void freeTree(struct node **tree) {
+void rotateLeft(struct node *root, struct node *n) {
+  struct node *y = n->right;
+  n->right = y->left;
+  if (y->left != NULL) y->left->parent = n;
+  y->parent = n->parent;
+  if(n->parent == NULL) root = y;
+  else if(n->val == n->parent->left->val) n->parent->left = y;
+  else n->parent->right = y;
+  y->left = n;
+  n->parent = y;
+}
 
-  if (*tree == NULL) return;
+void freeTree(struct node *tree) {
 
-  freeTree(&(*tree)->left);
-  freeTree(&(*tree)->right);
-  free(*tree);
-  *tree = NULL;
+  if (tree == NULL) return;
+
+  freeTree(tree->left);
+  freeTree(tree->right);
+  free(tree);
+  tree = NULL;
 
 }

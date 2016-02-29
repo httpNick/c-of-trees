@@ -41,12 +41,34 @@ int main() {
   int _i;
   for(_i = 0; ; _i++) {
     if (testNodes[_i] == NULL) break;
-    root = insert(root, testNodes[_i]);
+    root = bstInsert(root, testNodes[_i]);
   }
 
   inOrderPrint(root);
 
-  freeTree(&root);
+  freeTree(root);
+  if (root == NULL) printf("ROOT IS NULL/FREED");
+
+  /*struct node *rotateTestNodes[] = {
+    createANode(7),
+    createANode(4),
+    createANode(11),
+    createANode(6),
+    createANode(9),
+    createANode(3),
+    createANode(18),
+    createANode(2),
+    createANode(14),
+    createANode(17),
+    createANode(12),
+    createANode(19),
+    createANode(22),
+    createANode(20)
+  }; */
+
+  //for(_i = 0;)
+
+
 
   return 0;
 }
