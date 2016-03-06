@@ -5,7 +5,7 @@
 #include <string.h>
 #include "bst.h"
 
-struct bstNode *addToTree(struct bstNode *thing, char *word) {
+struct bstNode *addToTree(struct bstNode * thing, char * word) {
 
   if (thing != NULL) {
 
@@ -29,7 +29,7 @@ return thing;
 
 }
 
-struct bstNode *find(struct bstNode *thing, char *word) {
+struct bstNode *find(struct bstNode * thing, char * word) {
 
   if (thing != NULL) {
 
@@ -43,7 +43,7 @@ struct bstNode *find(struct bstNode *thing, char *word) {
   return thing;
 }
 
-void inOrderPrint(struct bstNode *tree) {
+void inOrderPrint(struct bstNode * tree) {
 
   if (tree != NULL) {
 
@@ -55,7 +55,7 @@ void inOrderPrint(struct bstNode *tree) {
 
 }
 
-void preOrderPrint(struct bstNode *tree) {
+void preOrderPrint(struct bstNode * tree) {
 
   if (tree != NULL) {
 
@@ -67,7 +67,7 @@ void preOrderPrint(struct bstNode *tree) {
 
 }
 
-void postOrderPrint(struct bstNode *tree) {
+void postOrderPrint(struct bstNode * tree) {
 
   if (tree != NULL) {
 
@@ -79,13 +79,12 @@ void postOrderPrint(struct bstNode *tree) {
 
 }
 
-void freeTree(struct bstNode **tree) {
+void freeTree(struct bstNode * tree) {
 
-  if (*tree == NULL) return;
+  if (tree == NULL) return;
 
-    freeTree(&(*tree)->left);
-    freeTree(&(*tree)->right);
-    free(*tree);
-    *tree = NULL;
+  freeTree(tree->left);
+  freeTree(tree->right);
+  free(tree);
 
-};
+}

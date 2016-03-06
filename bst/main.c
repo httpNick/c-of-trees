@@ -14,7 +14,7 @@ int main() {
 
   inOrderPrint(root);
 
-  freeTree(&root);
+  freeTree(root);
 
   return 0;
 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "red-black.h"
 
-struct node * grandparent(struct node *tree) {
+struct node * grandparent(struct node * tree) {
 
   if((tree != NULL) && tree->parent != NULL) return tree->parent->parent;
   return NULL;
@@ -24,7 +24,7 @@ struct node * auntcle(struct node *tree) {
 
 }
 
-struct node * bstInsert(struct node *n, struct node *x) {
+struct node * bstInsert(struct node * n, struct node * x) {
 
   if (n != NULL) {
 
@@ -58,7 +58,7 @@ struct node * bstInsert(struct node *n, struct node *x) {
   return n;
 }
 
-void inOrderPrint(struct node *tree) {
+void inOrderPrint(struct node * tree) {
 
   if (tree != NULL) {
 
@@ -112,7 +112,7 @@ struct node * insert(struct node * root, struct node * x) {
 
 }
 
-void leftRotate(struct node * root, struct node *n) {
+void leftRotate(struct node * root, struct node * n) {
   struct node *y = n->right;
   n->right = y->left;
   if (y->left != NULL) y->left->parent = n;
@@ -136,7 +136,7 @@ void rightRotate(struct node * root, struct node * n) {
   n->parent = y;
 }
 
-void freeTree(struct node *tree) {
+void freeTree(struct node * tree) {
 
   if (tree == NULL) return;
 
