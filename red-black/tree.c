@@ -76,30 +76,39 @@ struct node * insert(struct node * root, struct node * x) {
   x->color = RED;
 
   while(x->parent != NULL && x->parent->color == RED) {
+
     // ref grandparents other child.
     struct node *y = auntcle(x);
+
     if (x->parent->val == grandparent(x)->left->val) {
+
       // case 1
       if (y->color == RED) {
+
         x->parent->color = BLACK;
         y->color = BLACK;
         grandparent(x)->color = RED;
         x = grandparent(x);
+
       } else if (x->val == x->parent->right->val) {
+
         //case 2
         x = x->parent;
         leftRotate(root, x);
+
         //case 3
         x->parent->color = BLACK;
         grandparent(x)->color = RED;
         rightRotate(root, grandparent(x));
+
       }
 
     }
+
   }
 
   root->color = BLACK;
-  return tree;
+  return root;
 
 }
 
