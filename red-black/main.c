@@ -4,6 +4,7 @@
 #include "red-black.h"
 
 struct node *createANode(int);
+struct node *createTree(struct node **);
 
 int main() {
 
@@ -38,18 +39,13 @@ int main() {
     NULL
   };
 
-  int _i;
-  for(_i = 0; ; _i++) {
-    if (testNodes[_i] == NULL) break;
-    root = bstInsert(root, testNodes[_i]);
-  }
+  root = createTree(testNodes);
 
   inOrderPrint(root);
 
   freeTree(root);
-  if (root == NULL) printf("ROOT IS NULL/FREED");
 
-  /*struct node *rotateTestNodes[] = {
+  struct node *rotateTestNodes[] = {
     createANode(7),
     createANode(4),
     createANode(11),
@@ -63,12 +59,16 @@ int main() {
     createANode(12),
     createANode(19),
     createANode(22),
-    createANode(20)
-  }; */
+    createANode(20),
+    NULL
+  };
 
-  //for(_i = 0;)
+  root = createTree(rotateTestNodes);
 
+  inOrderPrint(root);
+  leftRotate(root, root->right);
 
+  freeTree(root);
 
   return 0;
 }
@@ -91,4 +91,24 @@ struct node * createANode(int value) {
     return NULL;
 
   }
+}
+
+struct node * createTree(struct node **nodes) {
+
+  printf("\n");
+  printf("--------------------");
+  printf("creating new tree");
+  printf("--------------------");
+  printf("\n\n");
+
+  struct node *root = NULL;
+  int _i;
+
+  for (_i = 0; ; _i++) {
+    if (nodes[_i] == NULL) break;
+    root = bstInsert(root, nodes[_i]);
+  }
+
+  return root;
+
 }

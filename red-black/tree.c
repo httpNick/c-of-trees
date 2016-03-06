@@ -91,7 +91,7 @@ struct node * insert(struct node *tree, struct node *x) {
 
 }
 
-void rotateLeft(struct node *root, struct node *n) {
+void leftRotate(struct node * root, struct node *n) {
   struct node *y = n->right;
   n->right = y->left;
   if (y->left != NULL) y->left->parent = n;
@@ -103,6 +103,18 @@ void rotateLeft(struct node *root, struct node *n) {
   n->parent = y;
 }
 
+void rightRotate(struct node * root, struct node * n) {
+  struct node *y = n->left;
+  n->left = y->left;
+  if (y->right != NULL) y->right->parent = n;
+  y->parent = n->parent;
+  if(n->parent == NULL) root = y;
+  else if(n->val == n->parent->right->val) n->parent->right = y;
+  else n->parent->left = y;
+  y->right = n;
+  n->parent = y;
+}
+
 void freeTree(struct node *tree) {
 
   if (tree == NULL) return;
@@ -110,6 +122,5 @@ void freeTree(struct node *tree) {
   freeTree(tree->left);
   freeTree(tree->right);
   free(tree);
-  tree = NULL;
 
 }
