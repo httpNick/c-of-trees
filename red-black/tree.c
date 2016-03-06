@@ -70,24 +70,35 @@ void inOrderPrint(struct node *tree) {
 
 }
 
-struct node * insert(struct node *tree, struct node *x) {
+struct node * insert(struct node * root, struct node * x) {
 
-  tree = bstInsert(tree, x);
+  root = bstInsert(root, x);
   x->color = RED;
+
   while(x->parent != NULL && x->parent->color == RED) {
+    // ref grandparents other child.
+    struct node *y = auntcle(x);
     if (x->parent->val == grandparent(x)->left->val) {
-      struct node *y = grandparent(x)->right;
       // case 1
       if (y->color == RED) {
         x->parent->color = BLACK;
         y->color = BLACK;
         grandparent(x)->color = RED;
         x = grandparent(x);
+      } else if (x->val == x->parent->right->val) {
+        //case 2
+        x = x->parent;
+        leftRotate(root, x);
+        //case 3
+        x->parent->color = BLACK;
+        grandparent(x)->color = RED;
+        rightRotate(root, grandparent(x));
       }
-      //case 2
+
     }
   }
-  tree->color = BLACK;
+
+  root->color = BLACK;
   return tree;
 
 }
