@@ -105,7 +105,7 @@ void leftRotate(struct node * root, struct node *n) {
 
 void rightRotate(struct node * root, struct node * n) {
   struct node *y = n->left;
-  n->left = y->left;
+  n->left = y->right;
   if (y->right != NULL) y->right->parent = n;
   y->parent = n->parent;
   if(n->parent == NULL) root = y;
