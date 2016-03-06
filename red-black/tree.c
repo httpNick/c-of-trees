@@ -16,7 +16,7 @@ struct node * auntcle(struct node *tree) {
 
   if(gparent != NULL) {
 
-    if (gparent->left == tree->parent) return gparent->right;
+    if (gparent->left->val == tree->parent->val) return gparent->right;
     else return gparent->left;
 
   }
@@ -73,6 +73,7 @@ void inOrderPrint(struct node *tree) {
 struct node * insert(struct node *tree, struct node *x) {
 
   tree = bstInsert(tree, x);
+  x->color = RED;
   while(x->parent != NULL && x->parent->color == RED) {
     if (x->parent->val == grandparent(x)->left->val) {
       struct node *y = grandparent(x)->right;
