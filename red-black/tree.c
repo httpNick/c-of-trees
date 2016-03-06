@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include "red-black.h"
 
+void handleCaseOne(struct node *, struct node *);
+void handleCaseTwoAndThree(struct node *, struct node *, void(*)(struct node *, struct node *), void(*)(struct node *, struct node *));
+
 struct node * grandparent(struct node * tree) {
 
   if((tree != NULL) && tree->parent != NULL) return tree->parent->parent;
@@ -80,26 +83,31 @@ struct node * insert(struct node * root, struct node * x) {
     // ref grandparents other child.
     struct node *y = auntcle(x);
 
+    // x's parent is left side of grandparent
     if (x->parent->val == grandparent(x)->left->val) {
 
       // case 1
       if (y->color == RED) {
 
-        x->parent->color = BLACK;
-        y->color = BLACK;
-        grandparent(x)->color = RED;
-        x = grandparent(x);
+       handleCaseOne(x, y);
 
       } else if (x->val == x->parent->right->val) {
 
-        //case 2
-        x = x->parent;
-        leftRotate(root, x);
+        handleCaseTwoAndThree(root, x, leftRotate, rightRotate);
 
-        //case 3
-        x->parent->color = BLACK;
-        grandparent(x)->color = RED;
-        rightRotate(root, grandparent(x));
+      }
+
+    // x's parent is right side of grandparent.
+    } else if (x->parent->val == grandparent(x)->right->val) {
+
+      // case 1
+      if (y->color == RED) {
+
+        handleCaseOne(x, y);
+
+      } else if (x->val == x->parent->left->val) {
+
+        handleCaseTwoAndThree(root, x, rightRotate, leftRotate);
 
       }
 
@@ -109,6 +117,28 @@ struct node * insert(struct node * root, struct node * x) {
 
   root->color = BLACK;
   return root;
+
+}
+
+void handleCaseOne(struct node * x, struct node * y) {
+
+  x->parent->color = BLACK;
+  y->color = BLACK;
+  grandparent(x)->color = RED;
+  x = grandparent(x);
+
+}
+
+void handleCaseTwoAndThree(struct node * root, struct node * x, void(*firstRotation)( struct node *, struct node *), void(*secondRotation)(struct node *, struct node *)) {
+
+  // case 2
+  x = x->parent;
+  firstRotation(root, x);
+
+  //case 3
+  x->parent->color = BLACK;
+  grandparent(x)->color = RED;
+  secondRotation(root, grandparent(x));
 
 }
 
