@@ -10,6 +10,7 @@ int main() {
 
   struct node *root = NULL;
 
+  // print testing for auntcle and grandparent functions.
   struct node a = { .val = 1, .color = 0, .parent = NULL, .left = NULL, .right = NULL };
   struct node b = { .val = 2, .color = 1, .parent = NULL, .left = NULL, .right = NULL };
   struct node c = { .val = 3, .color = 2, .parent = NULL, .left = NULL, .right = NULL };
@@ -27,7 +28,7 @@ int main() {
   printf("grandparent: %d\n", grandparent(&c)->val);
 
   root = NULL;
-
+// Print testing for tree creation and inOrderPrint.
   struct node *testNodes[] = {
     createANode(6),
     createANode(2),
@@ -44,6 +45,8 @@ int main() {
   inOrderPrint(root);
 
   freeTree(root);
+
+  // Print testing for tree rotations.
 
   struct node *rotateTestNodes[] = {
     createANode(7),
@@ -73,6 +76,12 @@ int main() {
   printf("after right: %d\n", root->right->val);
 
   freeTree(root);
+
+  //root = createTree(rotateTestNodes);
+
+
+
+
 
   return 0;
 }
@@ -110,7 +119,7 @@ struct node * createTree(struct node **nodes) {
 
   for (_i = 0; ; _i++) {
     if (nodes[_i] == NULL) break;
-    root = bstInsert(root, nodes[_i]);
+    root = insert(root, nodes[_i]);
   }
 
   return root;

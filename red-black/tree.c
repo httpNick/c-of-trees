@@ -19,7 +19,7 @@ struct node * auntcle(struct node *tree) {
 
   if(gparent != NULL) {
 
-    if (gparent->left->val == tree->parent->val) return gparent->right;
+    if (gparent->left != NULL && gparent->left->val == tree->parent->val) return gparent->right;
     else return gparent->left;
 
   }
@@ -78,11 +78,12 @@ struct node * insert(struct node * root, struct node * x) {
   root = bstInsert(root, x);
   x->color = RED;
 
-  while(x->parent != NULL && x->parent->color == RED) {
+  // if x != root or 2nd child of tree.
+  while(grandparent(x) != NULL && x->parent != NULL && x->parent->color == RED) {
 
     // ref grandparents other child.
     struct node *y = auntcle(x);
-
+    if (y == NULL) break;
     // x's parent is left side of grandparent
     if (x->parent->val == grandparent(x)->left->val) {
 
@@ -114,6 +115,7 @@ struct node * insert(struct node * root, struct node * x) {
     }
 
   }
+
 
   root->color = BLACK;
   return root;
