@@ -66,6 +66,7 @@ void inOrderPrint(struct node * tree) {
   if (tree != NULL) {
 
     inOrderPrint(tree->left);
+    if (tree->parent != NULL && tree->color == 0 && tree->parent->color == 0) printf("CLASHING RULES : DOUBLE RED. CHILD : %d, PARENT : %d\n", tree->val, tree->parent->val);
     printf("value: %d | color: %d\n", tree->val, tree->color);
     inOrderPrint(tree->right);
 

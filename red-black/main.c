@@ -69,11 +69,6 @@ int main() {
   root = createTree(rotateTestNodes);
 
   inOrderPrint(root);
-  printf("before rotation: %d\n", root->right->val);
-  leftRotate(root, root->right);
-  printf("after left: %d\n", root->right->val);
-  rightRotate(root, root->right);
-  printf("after right: %d\n", root->right->val);
 
   freeTree(root);
 
